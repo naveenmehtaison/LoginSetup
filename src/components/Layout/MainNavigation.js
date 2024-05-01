@@ -1,8 +1,16 @@
 import { Link } from 'react-router-dom';
-
+import { useContext } from 'react';
 import classes from './MainNavigation.module.css';
+import DataContext from '../../Store/auth-context';
 
 const MainNavigation = () => {
+  const Ctx = useContext(DataContext)
+  const handlelogout=()=>{
+    console.log(Ctx.Tokenarr)
+    Ctx.removeToken(Ctx.Token)
+    console.log(Ctx.Tokenarr)
+    Ctx.loginfunc()
+  }
   return (
     <header className={classes.header}>
       <Link to='/'>
@@ -17,7 +25,7 @@ const MainNavigation = () => {
             <Link to='/profile'>Profile</Link>
           </li>
           <li>
-            <button>Logout</button>
+            {!Ctx.islogin && <button onClick={handlelogout}>Logout</button>}
           </li>
         </ul>
       </nav>

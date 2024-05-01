@@ -4,13 +4,22 @@ import Button from 'react-bootstrap/Button';
 import classes from './AuthForm.module.css';
 import axios from 'axios';
 import { Col, Container, Row } from 'react-bootstrap';
+import { useContext } from 'react';
+import DataContext from '../../Store/auth-context';
 const AuthForm = () => {
+  const Ctx = useContext(DataContext)
+  
   const [isLogin, setIsLogin] = useState(true);
   const [loading,setloading]= useState(false)
   const [alert,setalert] = useState(false)
   const [showlogin,Setshowlogin]=useState(false)
+  console.log(Ctx)
 
   async function submitHandler  (e) {
+    
+    
+    
+
     if(!isLogin){
       try{e.preventDefault()
       const obj = {Email:e.target.email.value,
@@ -21,11 +30,16 @@ const AuthForm = () => {
         password: obj.Password,
         returnSecureToken: true 
     })
-      console.log(response.idToken)
+      console.log(response)
       setloading(false)
+      Ctx.funcToken(response.idToken)
+      console.log(Ctx.Token,'succesfulll')
+      Ctx.loginfunc()
+
       }
       catch{
         setalert(true)
+        console.log('erroroccured')
         setloading(false)
       }
       
@@ -37,7 +51,7 @@ const AuthForm = () => {
         const email = e.target.email.value
         const password = e.target.password.value
     
-      
+       console.log('hii')
         const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBDR5SSxYk2jPHpBjbYZNPoa76PPAmRPdo', {
             email: email,
             password: password,
@@ -45,11 +59,18 @@ const AuthForm = () => {
         })
     
 
-        console.log(response.data);
+        console.log(response.idToken);
+        Ctx.funcToken(response.data.idToken)
+        console.log(Ctx.Token,'succesfulll')
+        Ctx.loginfunc()
     
     } catch (error) {
-        console.error('Error signing in:', error.response.data.error.message);
+        console.error('Error signing in:',error.response);
         setalert(true)
+        console.log(Ctx)
+        Ctx.funcToken(1)
+
+        console.log(Ctx.Token,'succesfulll')
     }
     
     }
