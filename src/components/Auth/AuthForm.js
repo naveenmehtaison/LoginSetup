@@ -6,14 +6,28 @@ import axios from 'axios';
 import { Col, Container, Row } from 'react-bootstrap';
 import { useContext } from 'react';
 import DataContext from '../../Store/auth-context';
+import { useNavigate } from 'react-router-dom';
 const AuthForm = () => {
   const Ctx = useContext(DataContext)
-  
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [loading,setloading]= useState(false)
   const [alert,setalert] = useState(false)
   const [showlogin,Setshowlogin]=useState(false)
   console.log(Ctx)
+  const handlelogout=()=>{
+    console.log(Ctx.Tokenarr)
+    Ctx.removeToken(Ctx.Token)
+    console.log(Ctx.Tokenarr)
+    
+    localStorage.removeItem('token')
+    navigate('/auth')
+    Ctx.loginfunc()
+    console.log(Ctx)
+    
+    
+
+  }
 
   async function submitHandler  (e) {
     
@@ -25,7 +39,8 @@ const AuthForm = () => {
       const obj = {Email:e.target.email.value,
       Password:e.target.password.value}
       setloading(true)
-      const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBDR5SSxYk2jPHpBjbYZNPoa76PPAmRPdo',{
+      const response = await 
+      axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBDR5SSxYk2jPHpBjbYZNPoa76PPAmRPdo',{
         email: obj.Email,
         password: obj.Password,
         returnSecureToken: true 
@@ -65,6 +80,7 @@ const AuthForm = () => {
         console.log(Ctx.Token,'succesfulll')
         Ctx.loginfunc()
         localStorage.setItem('token',response.data.idToken)
+        setTimeout((handlelogout),5000)
     
     } catch (error) {
         console.error('Error signing in:',error.response);
@@ -76,6 +92,7 @@ const AuthForm = () => {
     }
     
     }
+    
   };
   const switchAuthModeHandler=()=>{
     setIsLogin(!isLogin)

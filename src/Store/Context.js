@@ -18,11 +18,12 @@ const Context =(props)=>{
         setcurtoken(props)
     }
     const HandleRemove=(tok)=>{
-        const updated_token = token.filter((ele,item)=>{
-            return ele!==tok
+        // const updated_token = token.filter((ele,item)=>{
+        //     return ele!==tok
             
-        })
-        settoken(updated_token)
+        // })
+        // settoken(updated_token)
+        setcurtoken('')
         
     }
     const handlelogin=()=>{

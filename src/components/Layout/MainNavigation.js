@@ -37,7 +37,7 @@ const MainNavigation = () => {
             <Link to='/profile'>Profile</Link>
           </li>
           <li>
-            {!Ctx.islogin && <button onClick={handlelogout}>Logout</button>}
+            {Ctx.Token!=='' && <button onClick={handlelogout}>Logout</button>}
           </li>
         </ul>
       </nav>
