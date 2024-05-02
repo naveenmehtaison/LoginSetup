@@ -1,8 +1,12 @@
 import React, { createContext } from "react";
 
 const DataContext = createContext({
-    Email: '',
-    Password: ''
+    loginfunc:()=>{},
+    islogin:false,
+    funcToken:()=>{},
+    removeToken:()=>{},
+    Token:[],
+    Tokenarr:''
 });
 
 export default DataContext;

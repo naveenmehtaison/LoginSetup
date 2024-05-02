@@ -35,6 +35,7 @@ const AuthForm = () => {
       Ctx.funcToken(response.idToken)
       console.log(Ctx.Token,'succesfulll')
       Ctx.loginfunc()
+      localStorage.setItem('token',response.idToken)
 
       }
       catch{
@@ -63,6 +64,7 @@ const AuthForm = () => {
         Ctx.funcToken(response.data.idToken)
         console.log(Ctx.Token,'succesfulll')
         Ctx.loginfunc()
+        localStorage.setItem('token',response.data.idToken)
     
     } catch (error) {
         console.error('Error signing in:',error.response);

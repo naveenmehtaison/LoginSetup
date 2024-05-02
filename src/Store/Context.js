@@ -1,12 +1,17 @@
 import DataContext from "./auth-context";
 import { useState } from "react";
-import React from "react";
-import { createContext } from "react";
 import { useContext } from "react";
+import React, { createContext } from "react";
+
+
+
+
 const Context =(props)=>{
+
     const [token,settoken]=useState([])
-    const [curtoken,setcurtoken]=useState('')
+    const [curtoken,setcurtoken]=useState(localStorage.getItem('token'))
     const [login,setlogin]=useState(false)
+
     const HandleToken=(props)=>{
         settoken([...token,props])  
         console.log('handletoken')

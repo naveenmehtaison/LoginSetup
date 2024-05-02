@@ -17,7 +17,9 @@ const MainNavigation = () => {
     Ctx.removeToken(Ctx.Token)
     console.log(Ctx.Tokenarr)
     Ctx.loginfunc()
+    localStorage.removeItem('token')
     Navigate('/auth')
+    
     
 
   }
